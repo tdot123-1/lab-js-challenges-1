@@ -32,14 +32,17 @@ function howManyTimes(wordsArr, wordToFind) {
 function createSequence(n) {
   // set empty array
   const sequence = [];
-  // if n greater than 0, add each number until n (inclusive) to array
-  if (n > 0) {
-    for (let i = 0; i <= n; i++) {
-      sequence.push(i);
-    }
+  // check if n != 0
+  if (n < 1) {
+    return sequence;
+  }
+  // push numbers into sequence
+  for (let i = 0; i <= n; i += 1) {
+    sequence.push(i);
   }
 
   return sequence;
+
 }
 
 
@@ -48,12 +51,16 @@ function createSequence(n) {
 // Iteration 3 | Multiply for Each
 const numbers = [1, 2, 5, 10, 13, 50];
 
-function multiplyBy(numbersArr, factor) {
-  // set empty array
+function multiplyBy(numbersArr, multiplier) {
+  
   const result = [];
-  // multiply each number in argument array by factor, push to new array
+  // return empty array if arg is empty arr
+  if (numbersArr.length === 0) {
+    return result;
+  }
+  // push each number multiplied by factor into result array
   numbersArr.forEach(number => {
-    result.push(number * factor);
+    result.push(number * multiplier);
   });
 
   return result;
@@ -67,22 +74,24 @@ const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 const toRemove = ["cat", "dog"];
 
 function filterOut(wordsArr, filter) {
+
   // check for empty array
   if (wordsArr.length === 0) {
     return null;
   }
 
-  const resultArr = [];
-
-  // loop over each word in array, check if word is included in filter
-  // if not, add to result array
+  const filteredArr = [];
+  // check for each word if it is included in filter, push into new array if not
   wordsArr.forEach(word => {
+
     if (!filter.includes(word)) {
-      resultArr.push(word);
+      filteredArr.push(word);
     }
+
   });
 
-  return resultArr;
+  return filteredArr;
+
 }
 
 
@@ -104,21 +113,20 @@ const duplicateWords = [
 ];
 
 function uniquifyArray(wordsArr) {
-  
   // check for empty array
   if (wordsArr.length === 0) {
     return null;
   }
-  
-  const resultArr = [];
-  // for each word, check if word already exists in result array
+
+  const uniqueArr = [];
+  // if word doesn't already occur in array, push into array
   wordsArr.forEach(word => {
-    if (!resultArr.includes(word)) {
-      resultArr.push(word);
+    if (!uniqueArr.includes(word)) {
+      uniqueArr.push(word);
     }
   });
 
-  return resultArr;
+  return uniqueArr;
 }
 
 
@@ -175,6 +183,6 @@ function greatestProduct(matrix) {
       });
     }
   });
-  console.log(result)
+
   return result;
 }
