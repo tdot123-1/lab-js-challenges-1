@@ -14,9 +14,9 @@ const repeatedWords = [
 ];
 
 function howManyTimes(wordsArr, wordToFind) {
-
+  // keep track of occurances for word to find
   let occurances = 0;
-
+  // for each word in array, compare to word to find
   wordsArr.forEach(word => {
     if (word === wordToFind) {
       occurances += 1;
@@ -30,7 +30,9 @@ function howManyTimes(wordsArr, wordToFind) {
 
 // Iteration 2 | Number Sequence
 function createSequence(n) {
+  // set empty array
   const sequence = [];
+  // if n greater than 0, add each number until n (inclusive) to array
   if (n > 0) {
     for (let i = 0; i <= n; i++) {
       sequence.push(i);
@@ -47,8 +49,9 @@ function createSequence(n) {
 const numbers = [1, 2, 5, 10, 13, 50];
 
 function multiplyBy(numbersArr, factor) {
+  // set empty array
   const result = [];
-
+  // multiply each number in argument array by factor, push to new array
   numbersArr.forEach(number => {
     result.push(number * factor);
   });
@@ -64,13 +67,15 @@ const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 const toRemove = ["cat", "dog"];
 
 function filterOut(wordsArr, filter) {
-  
+  // check for empty array
   if (wordsArr.length === 0) {
     return null;
   }
 
   const resultArr = [];
 
+  // loop over each word in array, check if word is included in filter
+  // if not, add to result array
   wordsArr.forEach(word => {
     if (!filter.includes(word)) {
       resultArr.push(word);
@@ -100,12 +105,13 @@ const duplicateWords = [
 
 function uniquifyArray(wordsArr) {
   
+  // check for empty array
   if (wordsArr.length === 0) {
     return null;
   }
   
   const resultArr = [];
-
+  // for each word, check if word already exists in result array
   wordsArr.forEach(word => {
     if (!resultArr.includes(word)) {
       resultArr.push(word);
@@ -142,4 +148,33 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
+  // keep track of greatest product
+  let result = 0;
+
+  // call method for each element (row) in matrix, keep track of index
+  matrix.forEach((row, rowIndex) => {
+    // make sure to not go out of bounds, rows are checked in groups of 4
+    if (rowIndex <= matrix.length - 4) {
+      // call method for each element (column) in row, keep track of index
+      row.forEach((col, colIndex) => {
+        // prevent going out of bounds, as columns are checked in groups of 4
+        if (colIndex <= row.length - 4) {
+          // get product of 4 elements next to eachother (in row)
+          let newProduct = matrix[rowIndex][colIndex] * matrix[rowIndex][colIndex + 1] * matrix[rowIndex][colIndex + 2] * matrix[rowIndex][colIndex + 3];
+          // set new result if product is greater than previous result
+          if (newProduct > result) {
+            result = newProduct;
+          }
+          // same proces but for 4 elements in underneath eachother (in column)
+          newProduct = matrix[rowIndex][colIndex] * matrix[rowIndex + 1][colIndex] * matrix[rowIndex + 2][colIndex] * matrix[rowIndex + 3][colIndex];
+          if (newProduct > result) {
+            result = newProduct;
+          }
+        }
+      });
+    }
+  });
+  console.log(result)
+  return result;
+}
